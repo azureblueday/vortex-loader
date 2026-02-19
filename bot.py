@@ -338,12 +338,12 @@ async def on_app_command_error(
 config_group = app_commands.Group(
     name="config",
     description="Bot configuration — Administrator only",
-    default_member_permissions=discord.Permissions(administrator=True),
 )
 
 
 @config_group.command(name="setlog", description="Set the channel where execution logs are sent")
 @app_commands.describe(channel="Text channel for logs")
+@app_commands.checks.has_permissions(administrator=True)
 async def cfg_setlog(interaction: discord.Interaction, channel: discord.TextChannel):
     config["log_channel"] = channel.id
     save_config(config)
@@ -353,6 +353,7 @@ async def cfg_setlog(interaction: discord.Interaction, channel: discord.TextChan
 
 @config_group.command(name="setrole", description="Set the role allowed to use script commands")
 @app_commands.describe(role="Role to grant script access")
+@app_commands.checks.has_permissions(administrator=True)
 async def cfg_setrole(interaction: discord.Interaction, role: discord.Role):
     config["allowed_role"] = role.id
     save_config(config)
@@ -362,6 +363,7 @@ async def cfg_setrole(interaction: discord.Interaction, role: discord.Role):
 
 @config_group.command(name="bindscript", description="Restrict a script to a specific channel")
 @app_commands.describe(script="Script name", channel="Channel that may control this script")
+@app_commands.checks.has_permissions(administrator=True)
 async def cfg_bindscript(interaction: discord.Interaction, script: str, channel: discord.TextChannel):
     config["script_channels"][script] = channel.id
     save_config(config)
@@ -374,6 +376,7 @@ async def cfg_bindscript(interaction: discord.Interaction, script: str, channel:
 
 @config_group.command(name="unbindscript", description="Remove the channel restriction from a script")
 @app_commands.describe(script="Script name to unbind")
+@app_commands.checks.has_permissions(administrator=True)
 async def cfg_unbindscript(interaction: discord.Interaction, script: str):
     if script in config["script_channels"]:
         del config["script_channels"][script]
@@ -385,6 +388,7 @@ async def cfg_unbindscript(interaction: discord.Interaction, script: str):
 
 
 @config_group.command(name="view", description="View the current bot configuration")
+@app_commands.checks.has_permissions(administrator=True)
 async def cfg_view(interaction: discord.Interaction):
     log_ch_id = config.get("log_channel")
     role_id = config.get("allowed_role")
