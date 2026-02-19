@@ -1,0 +1,15 @@
+{
+  "name": "vortex-loader",
+  "version": "1.0.0",
+  "description": "Vortex Loader — Remote Execution Interface (Vercel backend)",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "devDependencies": {
+    "vercel": "^34.0.0"
+  }
+}

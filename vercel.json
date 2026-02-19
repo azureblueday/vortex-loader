@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/api/control", "dest": "/api/control.js" },
+    { "src": "/",            "dest": "/api/index.js"   }
+  ]
+}
